@@ -16,9 +16,8 @@ RUN apt-get update && \
         golang-go \
         locales \
         sudo \
-    && locale-gen zh_CN.UTF-8 \
-    && update-locale LANG=zh_CN.UTF-8 \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
     
 # 官方镜像里 code-server 已在 /usr/bin 并归 root，root 装扩展写到系统目录
 RUN echo "coder ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/coder && \

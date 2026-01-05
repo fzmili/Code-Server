@@ -27,7 +27,6 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
     && code-server --install-extension rust-lang.rust-analyzer \
     && code-server --install-extension golang.go \
     && code-server --install-extension yzhang.markdown-all-in-one \
-    && code-server --install-extension dbaeumer.vscode-dark-plus-theme \
     && code-server --install-extension GitHub.github-vscode-theme \
     && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans \
     && code-server --install-extension formulahendry.code-runner \

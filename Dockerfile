@@ -33,8 +33,15 @@ RUN code-server --install-extension ms-vscode.cpptools \
     && code-server --install-extension dbaeumer.vscode-eslint \
     && code-server --install-extension rust-lang.rust \
     && code-server --install-extension golang.go \
+    && code-server --install-extension yzhang.markdown-all-in-one \
     && code-server --install-extension ms-vscode.theme-dark-plus \
-    && code-server --install-extension GitHub.github-vscode-theme
+    && code-server --install-extension GitHub.github-vscode-theme \
+    && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans \
+    && code-server --install-extension formulahendry.code-runner \
+    && code-server --install-extension vscode-icons-team.vscode-icons \
+    && code-server --install-extension emmanuelbeziat.vscode-great-icons \
+    && code-server --install-extension Adrien.VisualStudioDarkTheme \
+    && code-server --install-extension gerane.Theme-Monokai
 
 # 为了增强安全性，设置 Code-Server 用户权限
 RUN useradd -m coder && \

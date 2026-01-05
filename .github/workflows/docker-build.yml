@@ -31,9 +31,9 @@ jobs:
       # 构建 Docker 镜像
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/vscode-server:latest .
 
       # 推送 Docker 镜像到 Docker Hub
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/your-image-name:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/vscode-server:latest

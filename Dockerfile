@@ -31,8 +31,7 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
     && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans \
     && code-server --install-extension formulahendry.code-runner \
     && code-server --install-extension vscode-icons-team.vscode-icons \
-    && code-server --install-extension emmanuelbeziat.vscode-great-icons \
-    && code-server --install-extension gerane.monokai
+    && code-server --install-extension emmanuelbeziat.vscode-great-icons 
 
 RUN chown -R coder:coder /home/coder
 

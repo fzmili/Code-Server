@@ -24,17 +24,17 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
     && code-server --install-extension ms-python.python \
     && code-server --install-extension php.php-intellisense \
     && code-server --install-extension dbaeumer.vscode-eslint \
-    && code-server --install-extension rust-lang.rust \
+    && code-server --install-extension rust-lang.rust-analyzer \
     && code-server --install-extension golang.go \
     && code-server --install-extension yzhang.markdown-all-in-one \
-    && code-server --install-extension ms-vscode.theme-dark-plus \
+    && code-server --install-extension dbaeumer.vscode-dark-plus-theme \
     && code-server --install-extension GitHub.github-vscode-theme \
     && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans \
     && code-server --install-extension formulahendry.code-runner \
     && code-server --install-extension vscode-icons-team.vscode-icons \
     && code-server --install-extension emmanuelbeziat.vscode-great-icons \
-    && code-server --install-extension Adrien.VisualStudioDarkTheme \
-    && code-server --install-extension gerane.Theme-Monokai
+    && code-server --install-extension dbaeumer.vscode-dark-plus-theme \
+    && code-server --install-extension monokai.theme-monokai
 
 RUN chown -R coder:coder /home/coder
 

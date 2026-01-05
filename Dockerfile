@@ -32,7 +32,6 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
     && code-server --install-extension formulahendry.code-runner \
     && code-server --install-extension vscode-icons-team.vscode-icons \
     && code-server --install-extension emmanuelbeziat.vscode-great-icons \
-    && code-server --install-extension teabyii.theme-dark-plus \
     && code-server --install-extension monokai.theme-monokai
 
 RUN chown -R coder:coder /home/coder

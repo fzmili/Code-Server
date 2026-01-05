@@ -20,7 +20,7 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # 安装 VSCode 插件
-RUN code-server --install-extension ms-vscode.cpptools \
+RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
     && code-server --install-extension ms-python.python \
     && code-server --install-extension php.php-intellisense \
     && code-server --install-extension dbaeumer.vscode-eslint \

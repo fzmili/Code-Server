@@ -5,6 +5,16 @@ FROM codercom/code-server:latest
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
+# 切换为root来安装包
+USER root
+
+# 为了增强安全性，设置 Code-Server 用户权限
+RUN useradd -m coder && \
+    usermod -aG sudo coder && \
+    echo "coder:coder" | chpasswd && \
+    chmod 755 /usr/lib/code-server
+
+
 # 安装必要的工具和依赖
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -26,6 +36,8 @@ RUN apt-get update && apt-get install -y \
 RUN locale-gen zh_CN.UTF-8
 RUN update-locale LANG=zh_CN.UTF-8
 
+# 切换为codr用户，安全性和后期可用行
+USER coder
 # 安装 VSCode 插件
 RUN code-server --install-extension ms-vscode.cpptools \
     && code-server --install-extension ms-python.python \
@@ -42,15 +54,6 @@ RUN code-server --install-extension ms-vscode.cpptools \
     && code-server --install-extension emmanuelbeziat.vscode-great-icons \
     && code-server --install-extension Adrien.VisualStudioDarkTheme \
     && code-server --install-extension gerane.Theme-Monokai
-
-# 为了增强安全性，设置 Code-Server 用户权限
-RUN useradd -m coder && \
-    usermod -aG sudo coder && \
-    echo "coder:coder" | chpasswd && \
-    chmod 755 /usr/lib/code-server
-
-# 切换到非 root 用户运行 code-server
-USER coder
 
 # 设置 Code-Server 的默认工作目录
 WORKDIR /home/coder

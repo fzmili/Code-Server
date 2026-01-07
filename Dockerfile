@@ -4,7 +4,7 @@ FROM codercom/code-server:latest
 # 1. 先把 coder 用户的主目录准备好
 USER root
 RUN mkdir -p /home/coder/project \
- && mkdir -p /home/coder/.local/share/code-server/User 
+ && mkdir -p /home/coder/.local/share/code-server/User \
  && chown -R coder:coder /home/coder
 
 # 2. 换到 coder 身份再装插件（关键）

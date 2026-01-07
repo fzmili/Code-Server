@@ -1,42 +1,37 @@
-# 使用官方的 Code-Server 镜像作为基础镜像
 FROM codercom/code-server:latest
 
-# 切换为root来安装包
 USER root
 
-# 安装必要的工具和依赖
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-        build-essential \
-        git \
-        curl \
+# 1. 先把 coder 用户的主目录准备好
+RUN mkdir -p /home/coder/project \
+ && chown -R coder:coder /home/coder
+
+# 2. 换到 coder 身份再装插件（关键）
+USER coder
+RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
+ && code-server --install-extension ms-python.python \
+ && code-server --install-extension felixfbecker.php-intellisense \
+ && code-server --install-extension dbaeumer.vscode-eslint \
+ && code-server --install-extension rust-lang.rust-analyzer \
+ && code-server --install-extension golang.go \
+ && code-server --install-extension yzhang.markdown-all-in-one \
+ && code-server --install-extension GitHub.github-vscode-theme \
+ && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans \
+ && code-server --install-extension formulahendry.code-runner \
+ && code-server --install-extension vscode-icons-team.vscode-icons \
+ && code-server --install-extension emmanuelbeziat.vscode-great-icons
+
+# 3. 如果还要装系统包，再切回 root（可选）
+USER root
+RUN sudo apt-get update && \
+    sudo apt-get install -y --no-install-recommends \
+        build-essential git curl \
         python3 python3-pip python3-venv \
         php-cli php-curl php-xml php-mbstring \
-        rustc cargo \
-        golang-go \
-        locales \
-        sudo \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+        rustc cargo golang-go locales && \
+    sudo rm -rf /var/lib/apt/lists/*
 
-# 安装 VSCode 插件
-RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
-    && code-server --install-extension ms-python.python \
-    && code-server --install-extension felixfbecker.php-intellisense \
-    && code-server --install-extension dbaeumer.vscode-eslint \
-    && code-server --install-extension rust-lang.rust-analyzer \
-    && code-server --install-extension golang.go \
-    && code-server --install-extension yzhang.markdown-all-in-one \
-    && code-server --install-extension GitHub.github-vscode-theme \
-    && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans \
-    && code-server --install-extension formulahendry.code-runner \
-    && code-server --install-extension vscode-icons-team.vscode-icons \
-    && code-server --install-extension emmanuelbeziat.vscode-great-icons 
-
-RUN chown -R coder:coder /home/coder
-
+# 4. 最终仍以 coder 启动
 USER coder
-WORKDIR /home/coder
-
-# 默认端口、无密码，按需自行改
+WORKDIR /home/coder/project
 CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]

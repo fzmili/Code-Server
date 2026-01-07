@@ -39,10 +39,15 @@ COPY --chown=coder:coder - <<'EOF' /home/coder/.local/share/code-server/User/set
   "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,
   "terminal.integrated.fontSize": 14,
-  "code-runner.runInTerminal": true，
+  "code-runner.runInTerminal": true
+}
+EOF
+COPY --chown=coder:coder - <<'EOF' /home/coder/.local/share/code-server/User/locale.json
+{
   "locale": "zh-cn"
 }
 EOF
+
 
 
 # 4. 最终仍以 coder 启动

@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1.4
 FROM codercom/code-server:4.107.0-39
 
 

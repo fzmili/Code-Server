@@ -1,9 +1,10 @@
 FROM codercom/code-server:latest
 
-USER root
 
 # 1. 先把 coder 用户的主目录准备好
+USER root
 RUN mkdir -p /home/coder/project \
+ && mkdir -p /home/coder/.local/share/code-server/User 
  && chown -R coder:coder /home/coder
 
 # 2. 换到 coder 身份再装插件（关键）
@@ -30,6 +31,19 @@ RUN sudo apt-get update && \
         php-cli php-curl php-xml php-mbstring \
         rustc cargo golang-go locales && \
     sudo rm -rf /var/lib/apt/lists/*
+
+# 4. 配置Code-Server环境
+COPY --chown=coder:coder - <<'EOF' /home/coder/.local/share/code-server/User/settings.json
+{
+  "workbench.colorTheme": "Default Dark",   // 想换别的主题改这里
+  "workbench.iconTheme": "vscode-great-icons",
+  "editor.fontSize": 14,
+  "terminal.integrated.fontSize": 14,
+  "code-runner.runInTerminal": true，
+  "locale": "zh-cn"
+}
+EOF
+
 
 # 4. 最终仍以 coder 启动
 USER coder

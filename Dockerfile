@@ -42,6 +42,7 @@ COPY --chown=coder:coder - <<'EOF' /home/coder/.local/share/code-server/User/set
   "code-runner.runInTerminal": true
 }
 EOF
+
 COPY --chown=coder:coder - <<'EOF' /home/coder/.local/share/code-server/User/locale.json
 {
   "locale": "zh-cn"

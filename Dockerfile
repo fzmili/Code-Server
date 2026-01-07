@@ -1,4 +1,4 @@
-FROM codercom/code-server:latest
+FROM codercom/code-server:v4.106.3
 
 
 # 1. 先把 coder 用户的主目录准备好
@@ -24,13 +24,13 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
 
 # 3. 如果还要装系统包，再切回 root（可选）
 USER root
-RUN sudo apt-get update && \
-    sudo apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         build-essential git curl \
         python3 python3-pip python3-venv \
         php-cli php-curl php-xml php-mbstring \
         rustc cargo golang-go locales && \
-    sudo rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 # 4. 配置Code-Server环境
 COPY --chown=coder:coder - <<'EOF' /home/coder/.local/share/code-server/User/settings.json

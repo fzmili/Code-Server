@@ -47,6 +47,7 @@ jobs:
       # 5. 构建镜像（双标签：指定版本 + latest）
       - name: Build Docker image
         run: |
+          export DOCKER_BUILDKIT=1
           docker build \
             -t ${{ secrets.DOCKER_USERNAME }}/vscode-server:${{ env.VERSION }} \
             -t ${{ secrets.DOCKER_USERNAME }}/vscode-server:latest \

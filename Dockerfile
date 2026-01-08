@@ -42,16 +42,14 @@ RUN cat > /home/coder/.local/share/code-server/User/settings.json <<'SETTINGS'
   "terminal.integrated.fontSize": 14,
   "code-runner.runInTerminal": true
 }
-SETTINGS
-
+SETTINGS \
 && chown coder:coder /home/coder/.local/share/code-server/User/settings.json
 
 RUN cat > /home/coder/.local/share/code-server/User/locale.json <<'LOCALE'
 {
   "locale": "zh-CN"
 }
-LOCALE
-
+LOCALE \
 && chown coder:coder /home/coder/.local/share/code-server/User/locale.json
 
 

@@ -5,11 +5,14 @@ FROM codercom/code-server:4.107.0-debian
 # --------------------------------------------------
 USER root
 RUN apt-get update && \
+    apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y --no-install-recommends \
         build-essential git curl \
         python3 python3-pip python3-venv python-is-python3\
         php-cli php-curl php-xml php-mbstring \
         rustc cargo golang-go locales \
+        nodejs npm \
      && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && \

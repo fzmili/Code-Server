@@ -61,7 +61,6 @@ EOF
 # --------------------------------------------
 RUN cat <<'EOF' > /home/coder/.config/code-server/config.yaml
 bind-addr: 0.0.0.0:8080
-auth: none
 locale: zh-CN
 EOF
 # --------------------------------------------------

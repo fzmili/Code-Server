@@ -4,19 +4,17 @@ FROM codercom/code-server:4.107.0-debian
 # 1. 系统依赖
 # --------------------------------------------------
 USER root
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
         build-essential git curl \
         python3 python3-pip python3-venv python-is-python3\
         php-cli php-curl php-xml php-mbstring \
         rustc cargo golang-go locales \
         nodejs npm \
-     && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && sed -i '/zh_CN.UTF-8/s/^# //g' /etc/locale.gen \
+    && locale-gen zh_CN.UTF-8 \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && \
-    apt-get install -y locales && \
-    sed -i '/zh_CN.UTF-8/s/^# //g' /etc/locale.gen && \
-    locale-gen zh_CN.UTF-8
 ENV LANG=zh_CN.UTF-8 \
     LANGUAGE=zh_CN:zh \
     LC_ALL=zh_CN.UTF-8
@@ -52,15 +50,20 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
 # --------------------------------------------------
 RUN cat <<'EOF' > /home/coder/.local/share/code-server/User/settings.json
 {
-  "locale": "zh-CN",
-  "languagePack.supported": true,
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,
   "terminal.integrated.fontSize": 14
 }
 EOF
-
+# ------------------------------------------------------
+# 5.命令行配置文件
+# --------------------------------------------
+RUN cat <<'EOF' > /home/coder/.config/code-server/config.yaml
+bind-addr: 0.0.0.0:8080
+auth: none
+locale: zh-CN
+EOF
 # --------------------------------------------------
 # 5. 生成 docker-entrypoint.sh（关键）
 # --------------------------------------------------
@@ -99,4 +102,4 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 USER root
 WORKDIR /home/coder/project
 ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
-CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]
+CMD ["code-server"]

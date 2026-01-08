@@ -1,4 +1,4 @@
-FROM codercom/code-server:4.107.0-39
+FROM codercom/code-server:39
 
 # 1. 先把 coder 用户的主目录准备好
 USER root

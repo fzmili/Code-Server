@@ -45,6 +45,7 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
 RUN cat <<'EOF' > /home/coder/.local/share/code-server/User/settings.json
 {
   "locale": "zh-CN",
+  "languagePack.supported": true,
   "workbench.colorTheme": "Default Dark+",
   "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,

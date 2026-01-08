@@ -7,7 +7,7 @@ USER root
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         build-essential git curl \
-        python3 python3-pip python3-venv \
+        python3 python3-pip python3-venv python-is-python3\
         php-cli php-curl php-xml php-mbstring \
         rustc cargo golang-go locales \
      && apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -46,6 +46,7 @@ RUN cat <<'EOF' > /home/coder/.local/share/code-server/User/settings.json
 {
   "locale": "zh-CN",
   "workbench.colorTheme": "Default Dark+",
+  "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,
   "terminal.integrated.fontSize": 14
 }

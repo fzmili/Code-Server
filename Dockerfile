@@ -48,6 +48,7 @@ RUN chown -R coder:coder /home/coder/.local/share/code-server/User
 # 4. 最终仍以 coder 启动
 USER coder
 WORKDIR /home/coder/project
+RUN sudo chown -R coder:coder /home/coder/project || true
 CMD ["code-server",\ 
       "--bind-addr","0.0.0.0:8080", \
       "--auth", "none", \

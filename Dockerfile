@@ -34,7 +34,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # 4. 配置Code-Server环境
-RUN cat > /home/coder/.local/share/code-server/User/settings.json  <<SETTINGS
+RUN cat <<EOF >/home/coder/.local/share/code-server/User/settings.json
 {
   "workbench.colorTheme": "Default Dark",   // 想换别的主题改这里
   "workbench.iconTheme": "vscode-great-icons",
@@ -42,13 +42,15 @@ RUN cat > /home/coder/.local/share/code-server/User/settings.json  <<SETTINGS
   "terminal.integrated.fontSize": 14,
   "code-runner.runInTerminal": true
 }
-SETTINGS && chown coder:coder /home/coder/.local/share/code-server/User/settings.json
+EOF
+&& chown coder:coder /home/coder/.local/share/code-server/User/settings.json
 
-RUN cat > /home/coder/.local/share/code-server/User/locale.json  <<LOCALE
+RUN cat <<EOF > /home/coder/.local/share/code-server/User/locale.json
 {
   "locale": "zh-CN"
 }
-LOCALE && chown coder:coder /home/coder/.local/share/code-server/User/locale.json
+EOF
+&& chown coder:coder /home/coder/.local/share/code-server/User/locale.json
 
 
 # 4. 最终仍以 coder 启动

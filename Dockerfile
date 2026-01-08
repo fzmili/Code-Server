@@ -33,7 +33,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # 4. 配置Code-Server环境
-RUN cat <<EOF >/home/coder/.local/share/code-server/User/settings.json
+RUN cat <<EOF >/home/coder/.config/code-server/User/settings.json
 {
   "workbench.colorTheme": "Default Dark",   /**/
   "workbench.iconTheme": "vscode-great-icons",

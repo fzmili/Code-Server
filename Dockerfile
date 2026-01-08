@@ -43,6 +43,7 @@ RUN cat > /home/coder/.local/share/code-server/User/settings.json <<'SETTINGS'
   "code-runner.runInTerminal": true
 }
 SETTINGS
+
 && chown coder:coder /home/coder/.local/share/code-server/User/settings.json
 
 RUN cat > /home/coder/.local/share/code-server/User/locale.json <<'LOCALE'
@@ -50,6 +51,7 @@ RUN cat > /home/coder/.local/share/code-server/User/locale.json <<'LOCALE'
   "locale": "zh-CN"
 }
 LOCALE
+
 && chown coder:coder /home/coder/.local/share/code-server/User/locale.json
 
 

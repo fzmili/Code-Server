@@ -42,9 +42,9 @@ RUN cat <<EOF >/home/coder/.local/share/code-server/User/settings.json \
   "terminal.integrated.fontSize": 14,
   "code-runner.runInTerminal": true
 }
-EOF 
+EOF
 
-RUN cat <<EOF > /home/coder/.local/share/code-server/User/locale.json \
+RUN cat <<EOF  > /home/coder/.local/share/code-server/User/locale.json \
 && chown coder:coder /home/coder/.local/share/code-server/User/locale.json
 {
   "locale": "zh-CN"

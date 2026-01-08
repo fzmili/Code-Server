@@ -42,15 +42,13 @@ RUN cat > /home/coder/.local/share/code-server/User/settings.json <<'SETTINGS'
   "terminal.integrated.fontSize": 14,
   "code-runner.runInTerminal": true
 }
-SETTINGS \
-&& chown coder:coder /home/coder/.local/share/code-server/User/settings.json
+SETTINGS && chown coder:coder /home/coder/.local/share/code-server/User/settings.json
 
 RUN cat > /home/coder/.local/share/code-server/User/locale.json <<'LOCALE'
 {
   "locale": "zh-CN"
 }
-LOCALE \
-&& chown coder:coder /home/coder/.local/share/code-server/User/locale.json
+LOCALE && chown coder:coder /home/coder/.local/share/code-server/User/locale.json
 
 
 # 4. 最终仍以 coder 启动

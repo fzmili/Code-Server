@@ -1,4 +1,4 @@
-FROM codercom/code-server:39
+FROM codercom/code-server:4.107.0-debian
 
 # 1. 先把 coder 用户的主目录准备好
 USER root
@@ -38,12 +38,7 @@ RUN cat <<EOF >/home/coder/.local/share/code-server/User/settings.json
   "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,
   "terminal.integrated.fontSize": 14,
-  "code-runner.runInTerminal": true
-}
-EOF
-
-RUN cat <<EOF  > /home/coder/.local/share/code-server/User/locale.json
-{
+  "code-runner.runInTerminal": true,
   "locale": "zh-cn"
 }
 EOF

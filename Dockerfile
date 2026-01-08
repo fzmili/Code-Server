@@ -12,11 +12,12 @@ RUN apt-get update && \
         rustc cargo golang-go locales \
      && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
     locales \
- && locale-gen zh_CN.UTF-8 \
- && update-locale LANG=zh_CN.UTF-8 \
- && rm -rf /var/lib/apt/lists/*
+    && locale-gen zh_CN.UTF-8 \
+    && update-locale LANG=zh_CN.UTF-8 \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV LANG=zh_CN.UTF-8
 ENV LC_ALL=zh_CN.UTF-8

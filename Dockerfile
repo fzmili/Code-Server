@@ -4,6 +4,7 @@ FROM codercom/code-server:4.107.0-debian
 USER root
 RUN mkdir -p /home/coder/project \
  && mkdir -p /home/coder/.local/share/code-server/User \
+ && mkdir -p /home/coder/.local/share/code-server/extensions \
  && chown -R coder:coder /home/coder
 
 # 2. 换到 coder 身份再装插件（关键）
@@ -34,7 +35,7 @@ RUN apt-get update && \
 # 4. 配置Code-Server环境
 RUN cat <<EOF >/home/coder/.local/share/code-server/User/settings.json
 {
-  "workbench.colorTheme": "Default Dark",   // 想换别的主题改这里
+  "workbench.colorTheme": "Default Dark",   /**/
   "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,
   "terminal.integrated.fontSize": 14,
@@ -47,4 +48,7 @@ RUN chown -R coder:coder /home/coder/.local/share/code-server/User
 # 4. 最终仍以 coder 启动
 USER coder
 WORKDIR /home/coder/project
-CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]
+CMD ["code-server",\ 
+      "--bind-addr","0.0.0.0:8080", \
+      "--auth", "none", \
+      "--user-data-dir", "/home/coder/.local/share/code-server"]

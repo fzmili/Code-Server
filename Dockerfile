@@ -45,7 +45,7 @@ EOF
 
 RUN cat <<EOF  > /home/coder/.local/share/code-server/User/locale.json
 {
-  "locale": "zh-CN"
+  "locale": "zh-cn"
 }
 EOF
 RUN chown -R coder:coder /home/coder/.local/share/code-server/User

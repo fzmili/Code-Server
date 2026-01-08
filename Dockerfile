@@ -28,19 +28,26 @@ RUN mkdir -p \
 USER coder
 RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
  && code-server --install-extension ms-python.python \
+ && code-server --install-extension felixfbecker.php-intellisense \
+ && code-server --install-extension dbaeumer.vscode-eslint \
  && code-server --install-extension rust-lang.rust-analyzer \
  && code-server --install-extension golang.go \
- && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans
+ && code-server --install-extension yzhang.markdown-all-in-one \
+ && code-server --install-extension GitHub.github-vscode-theme \
+ && code-server --install-extension MS-CEINTL.vscode-language-pack-zh-hans \
+ && code-server --install-extension formulahendry.code-runner \
+ && code-server --install-extension vscode-icons-team.vscode-icons \
+ && code-server --install-extension emmanuelbeziat.vscode-great-icons
 
 # --------------------------------------------------
 # 4. VS Code settings（build 阶段）
 # --------------------------------------------------
 RUN cat <<'EOF' > /home/coder/.local/share/code-server/User/settings.json
 {
+  "locale": "zh-CN",
   "workbench.colorTheme": "Default Dark+",
   "editor.fontSize": 14,
-  "terminal.integrated.fontSize": 14,
-  "locale": "zh-cn"
+  "terminal.integrated.fontSize": 14
 }
 EOF
 

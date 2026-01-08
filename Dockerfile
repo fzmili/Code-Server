@@ -50,21 +50,29 @@ EOF
 USER root
 RUN cat <<'EOF' > /usr/local/bin/docker-entrypoint.sh
 #!/usr/bin/env bash
+#!/usr/bin/env bash
 set -e
 
 RUNTIME_UID=$(id -u)
 RUNTIME_GID=$(id -g)
 
-# 如果不是 coder（1000），修正权限
 if [ "$RUNTIME_UID" != "1000" ]; then
   echo "Adjust permissions for UID=$RUNTIME_UID"
   chown -R "$RUNTIME_UID:$RUNTIME_GID" /home/coder || true
 fi
 
-# 强制使用 coder 的 HOME（插件 & 配置）
 export HOME=/home/coder
 
+# --------------------------------------------------
+# 关键修复点：
+# 如果第一个参数是 --xxx，则补上 code-server
+# --------------------------------------------------
+if [ "${1#-}" != "$1" ]; then
+  set -- code-server "$@"
+fi
+
 exec "$@"
+
 EOF
 
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

@@ -33,21 +33,19 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # 4. 配置Code-Server环境
-RUN cat <<EOF >/home/coder/.local/share/code-server/User/settings.json \
-&& chown coder:coder /home/coder/.local/share/code-server/User/settings.json
+COPY --chown=coder:coder - <<'JSON' /home/coder/.local/share/code-server/User/settings.json
 {
-  "workbench.colorTheme": "Default Dark",   // 想换别的主题改这里
+  "workbench.colorTheme": "Default Dark",
   "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,
   "terminal.integrated.fontSize": 14,
   "code-runner.runInTerminal": true
 }
-EOF
+JSON
 
-RUN cat <<EOF  > /home/coder/.local/share/code-server/User/locale.json \
-&& chown coder:coder /home/coder/.local/share/code-server/User/locale.json
+COPY --chown=coder:coder - <<EOF /home/coder/.local/share/code-server/User/locale.json
 {
-  "locale": "zh-CN"
+  "locale":"zh-CN"
 }
 EOF
 

@@ -33,9 +33,9 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # 4. 配置Code-Server环境
-RUN cat <<EOF >/home/coder/.config/code-server/User/settings.json
+RUN cat <<EOF >/home/coder/.local/share/code-server/User/settings.json
 {
-  "workbench.colorTheme": "Default Dark",   /**/
+  "workbench.colorTheme": "Default Dark",
   "workbench.iconTheme": "vscode-great-icons",
   "editor.fontSize": 14,
   "terminal.integrated.fontSize": 14,
@@ -43,15 +43,11 @@ RUN cat <<EOF >/home/coder/.config/code-server/User/settings.json
   "locale": "zh-cn"
 }
 EOF
-RUN chown -R coder:coder /home/coder/.local/share/code-server/User
+
+RUN chown -R coder:coder /home/coder/.local/share/code-server
 
 # 4. 最终仍以 coder 启动
-USER root
-RUN sudo chown -R coder:coder /home/coder/project
 
 USER coder
 WORKDIR /home/coder/project
-CMD ["code-server",\ 
-      "--bind-addr","0.0.0.0:8080", \
-      "--auth", "none", \
-      "--user-data-dir", "/home/coder/.local/share/code-server"]
+CMD ["code-server", "--bind-addr", "0.0.0.0:8080", "--auth", "none"]

@@ -10,8 +10,16 @@ RUN apt-get update && \
         python3 python3-pip python3-venv \
         php-cli php-curl php-xml php-mbstring \
         rustc cargo golang-go locales \
-    && rm -rf /var/lib/apt/lists/*
+     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    locales \
+ && locale-gen zh_CN.UTF-8 \
+ && update-locale LANG=zh_CN.UTF-8 \
+ && rm -rf /var/lib/apt/lists/*
+
+ENV LANG=zh_CN.UTF-8
+ENV LC_ALL=zh_CN.UTF-8
 # --------------------------------------------------
 # 2. 准备 coder 目录
 # --------------------------------------------------
@@ -56,7 +64,6 @@ EOF
 # --------------------------------------------------
 USER root
 RUN cat <<'EOF' > /usr/local/bin/docker-entrypoint.sh
-#!/usr/bin/env bash
 #!/usr/bin/env bash
 set -e
 

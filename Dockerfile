@@ -1,6 +1,5 @@
 FROM codercom/code-server:4.107.0-debian
 
-
 # 1. 先把 coder 用户的主目录准备好
 USER root
 RUN mkdir -p /home/coder/project \
@@ -49,9 +48,6 @@ RUN cat <<EOF  > /home/coder/.local/share/code-server/User/locale.json
 }
 EOF
 RUN chown -R coder:coder /home/coder/.local/share/code-server/User
-
-
-
 
 # 4. 最终仍以 coder 启动
 USER coder
